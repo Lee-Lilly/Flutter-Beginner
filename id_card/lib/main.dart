@@ -67,11 +67,13 @@ class _IdCardState extends State<IdCard> {
     }
   }
 
-  @override
-  void initState() { //initial state by calling fetch method
-    super.initState();
-    fetchNinja();
-  }
+//  Future<Ninja> futureNinja;
+//
+//  @override
+//  void initState() { //initial state by calling fetch method
+//    super.initState();
+//    futureNinja = fetchNinja();
+//  }
 
   @override
   Widget build(BuildContext context) {
