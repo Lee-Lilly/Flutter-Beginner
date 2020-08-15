@@ -6,11 +6,20 @@ A new Flutter application.
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+Title: Ninja ID Card
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Main Function: 
+	1. HttpRequest to usersApi; 
+	2. Fetch data asynchronously; 
+	3. Convert repsonse in json form into Dart object;
+	4. Looping through all users by incremental of userID,
+	5. Display data in Flutter UI Widgets.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Main Flutter UI widgets: 
+	1. AppBar;
+	2. FutureBuilder for displaying response;
+	3. FloatActionButton for looping through all users.
+	
+Main Dart components:
+	1. main.dart (class IDCard, _IDCardState)
+	2. ninja.dart (class Ninja, function fetchNinja(id))
