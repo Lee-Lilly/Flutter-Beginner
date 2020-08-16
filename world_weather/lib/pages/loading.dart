@@ -11,6 +11,7 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
 
   void setupWorldWeather() async {
+
     WorldWeather instance = WorldWeather(location: 'Helsinki');
     await instance.getWeather();
 
@@ -36,17 +37,17 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[300],
+      backgroundColor: Colors.blue[600],
       body: Padding(
         padding: const EdgeInsets.all(50.0),
         child: Center(
-          child: SpinKitWave(
-            color: Colors.purpleAccent,
-            size: 50.0,
-          ),
+              child: SpinKitWave(
+                color: Colors.purpleAccent,
+                size: 50.0,
+              ),
+            ),
         ),
-      ),
-    );
+      );
   }
 }
 

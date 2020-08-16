@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:world_time/services/world_weather.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,6 +11,23 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   //initialize a Map structure
   Map res ={};
+  //user input
+  String input;
+
+  void updateWeather(input) async {
+    WorldWeather instance = WorldWeather(location: input);
+    await instance.getWeather();
+    Navigator.pop(context, {
+      'location': instance.location,
+      'country': instance.country,
+      'time': instance.time,
+      'weather': instance.weather,
+      'temperature': instance.temperature,
+      'iconPath': instance.iconPath,
+      'feelsLike': instance.feelsLike,
+      'isDayTime': instance.isDayTime,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,31 +53,6 @@ class _HomeState extends State<Home> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.add_location),
-                      SizedBox(width: 10),
-                      Container(
-                          width: 150.0,
-                          child: TextField(
-                            decoration: InputDecoration(
-                              hintText: 'Enter a place name',
-                              hintStyle: TextStyle(fontSize: 12),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(
-                                  width: 3,
-                                  style: BorderStyle.none,
-                                  color: Colors.teal[900],
-                                ),
-                              ),
-                              contentPadding: EdgeInsets.all(16),
-                            ),
-                          )
-                      )
-                    ],
-                  ),
                   SizedBox(height: 30.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -138,6 +131,77 @@ class _HomeState extends State<Home> {
                             )
                         ),
                       ]
+                  ),
+                  SizedBox(height: 169),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.edit_location,
+                          size: 69,
+                          color: Colors.amber[300]),
+                      SizedBox(width: 5),
+                      Container(
+                        width: 210,
+                        height: 45,
+                        child: RaisedButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) =>  AlertDialog(
+                                title: Text ("Enter a place name.",
+                                  style: TextStyle(
+                                    letterSpacing: 1.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                content: TextField(
+                                  onChanged: (val) {
+                                    setState(() => input = val);
+                                  },
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide(
+                                        width: 6,
+                                        style: BorderStyle.none
+                                      ),
+                                    ),
+                                    contentPadding: EdgeInsets.all(16),
+                                  ),
+                                ),
+                                actions: [
+                                  FlatButton(
+                                      onPressed: () {
+                                        updateWeather(input);
+                                      },
+                                      child: Text("Add",
+                                          style: TextStyle(
+                                            color: Colors.purpleAccent,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            letterSpacing: 1.0,
+                                          )
+                                      )
+                                  ),
+                                  FlatButton(
+                                    child: new Text('CANCEL'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  )
+                                ],
+                                backgroundColor: Colors.white60,
+                              ),
+                              barrierDismissible: true,
+                            );
+                          },
+                          color: Colors.pink[300],
+                          elevation: 30,
+                          child: Text('Click to edit Location'),
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ),
