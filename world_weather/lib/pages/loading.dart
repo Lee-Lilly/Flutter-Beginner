@@ -10,7 +10,7 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
 
-  Future <void> setupWorldWeather() async {
+  void setupWorldWeather() async {
 
     WorldWeather instance = WorldWeather(location: 'Helsinki');
     await instance.getWeather();
